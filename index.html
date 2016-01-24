@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sense Mate</title>
+
+    <!-- Bootstrap core CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="css/jumbotron-narrow.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="scripts/http.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a href="#">Home</a></li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Sense Mate</h3>
+        </div>
+        <div class="row marketing filter">
+            <h4>Select filter criterion: </h4>
+            <div class="btn-group" role="group" aria-label="..." id="filter-group">
+                <button type="button" class="btn btn-default" id="filter1">Filter 1</button>
+                <button type="button" class="btn btn-default" id="filter2">Filter 2</button>
+                <button type="button" class="btn btn-default" id="filter3">Filter 3</button>
+                <button type="button" class="btn btn-default" id="filter4">Filter 4</button>
+            </div>
+        </div>
+        <div class="row marketing aggregate">
+            <h4>Select aggregation Criteria:</h4>
+            <div class="btn-group" role="group" aria-label="..." id="agg-group">
+                <button type="button" class="btn btn-default" id="agg-count">Count</button>
+                <button type="button" class="btn btn-default" id="agg-sum">Sum</button>
+                <button type="button" class="btn btn-default" id="agg-sum">Average</button>
+            </div>
+        </div>
+        <div class="row marketing results">
+            <p>Aggregating <span class="label label-default"><span id="agg-result">--------</span></span> at a rate of <span class="label label-warning"><span id="rate">----</span>/second</span></p>
+        </div>
+        <div class="row marketing start">
+            <button type="button" class="btn btn-success" id="start-btn">Start</button>
+        </div>
+        <footer class="footer">
+            <p>&copy; Team C 4 lyfe</p>
+        </footer>
+
+        <script type="text/javascript">
+        $("#filter-group > .btn").click(function(){
+            $(this).addClass("btn-info").siblings().removeClass("btn-info");
+        });
+        $("#agg-group > .btn").click(function(){
+            $(this).addClass("btn-info").siblings().removeClass("btn-info");
+        });
+        $("#start-btn").click(function() {
+          startAggregation(
+            selectFilter($("#filter-group > .btn-info").attr("id")),
+            selectAggregator($("#agg-group > .btn-info").attr("id")),
+            function(update) {console.log("The new rate is: " + update)},
+            function(update) {console.log("The new agg is: " + update)}
+          );
+        });
+        </script>
+
+    </div> <!-- /container -->
+
+</body>
+</html>
