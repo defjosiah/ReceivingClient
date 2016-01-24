@@ -54,48 +54,24 @@ var startHttpHandshake = function (url, filter, aggregator, rateUpdate, aggUpdat
             requestDataDelete(url, jsResponse._id, jsResponse._data, aggregator, rateUpdate, aggUpdate);
         },
         error: function (error) {
-            rateUpdate("----");
-            aggUpdate("--------")
+            rateUpdate("post fail");
+            aggUpdate("0/s");
         }
     });
 };
 
 var requestDataDelete = function (url, id, data, aggregator, rateUpdate, aggUpdate) {
-    console.log(arguments);
     $.ajax({
         type: "GET",
-        url: url + "delete?id=" + id,
+        url: url + "api/delete?id=" + id,
         success: function (response) {
             console.log(data);
             rateUpdate("Woo");
             aggUpdate("double woo");
         },
         error: function (error) {
-            rateUpdate("----");
-            aggUpdate("--------")
-        }
-    });
-};
-// Wrap up the DELETE request execution so it can easily be
-// invoked from the end of the PUT delete response.
-var makeDELETERequest = function () {
-    // Make the DELETE request.
-    $.ajax({
-        type: "DELETE",
-        url: "http://localhost:8080/some/url/resource/path",
-        contentType: "application/json",
-        data: JSON.stringify({
-            name: "Tricia",
-            age: 37
-        }),
-        dataType: "text",
-        success: function (response) {
-            // Put the plain text in the PRE tag.
-            $("#deleteResponse").text(response);
-        },
-        error: function (error) {
-            // Log any error.
-            console.log("ERROR:", error);
+            rateUpdate("delete fail");
+            aggUpdate("0/s");
         }
     });
 };

@@ -74,8 +74,8 @@
             $("#host").val(),
             selectFilter($("#filter-group > .btn-info").attr("id")),
             selectAggregator($("#agg-group > .btn-info").attr("id")),
-            function(update) {console.log("The new rate is: " + update)},
-            function(update) {console.log("The new agg is: " + update)}
+            function(update) {$("#rate").text(update)},
+            function(update) {$("#agg-result").text(update)}
           );
         });
         </script>
