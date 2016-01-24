@@ -53,7 +53,7 @@
             </div>
         </div>
         <div class="row marketing results">
-            <p>Aggregating <span class="label label-default"><span id="agg-result">--------</span></span> at a rate of <span class="label label-warning"><span id="rate">----</span>/second</span></p>
+            <p>Aggregating <span class="label label-default"><span id="agg-result">--------</span></span> at a rate of <span class="label label-warning"><span id="rate">----</span>&nbsp;elements/second</span></p>
         </div>
         <div class="row marketing start">
             <button type="button" class="btn btn-success" id="start-btn">Start</button>
@@ -74,7 +74,7 @@
             $("#host").val(),
             selectFilter($("#filter-group > .btn-info").attr("id")),
             selectAggregator($("#agg-group > .btn-info").attr("id")),
-            function(update) {$("#rate").text(update)},
+            function(update) {$("#rate").text(update.substring(0, 7))},
             function(update) {$("#agg-result").text(update)}
           );
         });

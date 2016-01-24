@@ -5,7 +5,7 @@ var startAggregation = function (url, filter, aggregator, rateUpdate, aggUpdate)
     if (filter && aggregator && url) {
         _count = 0;
         _startTime = new Date().getTime() / 1000;
-        for (var i = 0; i < 100; i++) {
+        for (var i = 0; i < 50; i++) {
             startHttpHandshake(url, filter, aggregator, rateUpdate, aggUpdate);
         };
     }
@@ -38,7 +38,9 @@ var selectAggregator = function (agg) {
     switch (agg) {
         case "agg-count":
             return (function (data) {
-                _count = _count + 1;
+                if (data) {
+                    _count = _count + data.length;
+                }
             });
         default:
             return false;
@@ -69,8 +71,7 @@ var requestDataDelete = function (url, id, data, aggregator, rateUpdate, aggUpda
         type: "GET",
         url: url + "api/delete?id=" + id,
         success: function (response) {
-            console.log(data);
-            aggregator();
+            aggregator(data);
             var elapsedTime = new Date().getTime() / 1000;
             rateUpdate((_count/(elapsedTime - _startTime)).toString());
             aggUpdate(_count.toString());
