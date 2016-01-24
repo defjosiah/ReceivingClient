@@ -1,7 +1,7 @@
 
-var startAggregation = function (filter, aggregator, rateUpdate, aggUpdate) {
+var startAggregation = function (url, filter, aggregator, rateUpdate, aggUpdate) {
     if (filter && aggregator) {
-        startHttpHandshake(filter, aggregator, rateUpdate, aggUpdate);
+        startHttpHandshake(url, filter, aggregator, rateUpdate, aggUpdate);
     }
 }
 
@@ -41,17 +41,17 @@ var selectAggregator = function (agg) {
     }
 };
 
-var startHttpHandshake = function (filter, aggregator, rateUpdate, aggUpdate) {
+var startHttpHandshake = function (url, filter, aggregator, rateUpdate, aggUpdate) {
     // Make the PUT request.
     $.ajax({
         type: "POST",
-        url: "http://localhost:52403/api/get/string",
+        url: url + "api/get/string",
         contentType: "application/json",
         data: filter,
         dataType: "text",
         success: function (response) {
             var jsResponse = JSON.parse(response);
-            requestDataDelete(jsResponse._id, jsResponse._data, aggregator, rateUpdate, aggUpdate);
+            requestDataDelete(url, jsResponse._id, jsResponse._data, aggregator, rateUpdate, aggUpdate);
         },
         error: function (error) {
             rateUpdate("----");
@@ -60,11 +60,11 @@ var startHttpHandshake = function (filter, aggregator, rateUpdate, aggUpdate) {
     });
 };
 
-var requestDataDelete = function (id, data, aggregator, rateUpdate, aggUpdate) {
+var requestDataDelete = function (url, id, data, aggregator, rateUpdate, aggUpdate) {
     console.log(arguments);
     $.ajax({
         type: "GET",
-        url: "http://localhost:52403/api/delete?id=" + id,
+        url: url + "delete?id=" + id,
         success: function (response) {
             console.log(data);
             rateUpdate("Woo");

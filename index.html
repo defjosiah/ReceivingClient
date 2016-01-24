@@ -32,6 +32,10 @@
             <h3 class="text-muted">Sense Mate</h3>
         </div>
         <div class="row marketing filter">
+            <h4>Input host url: </h4>
+            <input type="text" class="form-control" placeholder="Host" aria-describedby="basic-addon1" id="host">
+        </div>
+        <div class="row marketing filter">
             <h4>Select filter criterion: </h4>
             <div class="btn-group" role="group" aria-label="..." id="filter-group">
                 <button type="button" class="btn btn-default" id="filter1">Filter 1</button>
@@ -67,6 +71,7 @@
         });
         $("#start-btn").click(function() {
           startAggregation(
+            $("#host").val(),
             selectFilter($("#filter-group > .btn-info").attr("id")),
             selectAggregator($("#agg-group > .btn-info").attr("id")),
             function(update) {console.log("The new rate is: " + update)},
