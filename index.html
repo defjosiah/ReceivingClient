@@ -52,11 +52,21 @@
                 <button type="button" class="btn btn-default" id="agg-sum">Average</button>
             </div>
         </div>
-        <div class="row marketing results">
-            <p>Aggregating <span class="label label-default"><span id="agg-result">--------</span></span> at a rate of <span class="label label-warning"><span id="rate">----</span>&nbsp;elements/second</span></p>
+        <div class="row marketing">
+            <div class="col-xs-4">
+              <label for="duration">Time (s)</label>
+              <input class="form-control" id="duration" type="text" value="60">
+            </div>
+            <div class="col-xs-4">
+              <label for="delay">Delay (ms)</label>
+              <input class="form-control" id="delay" type="text" value="100">
+            </div>
         </div>
         <div class="row marketing start">
             <button type="button" class="btn btn-success" id="start-btn">Start</button>
+        </div>
+        <div class="row marketing results">
+            <p>Aggregating <span class="label label-default"><span id="agg-result">--------</span></span> at a rate of <span class="label label-warning"><span id="rate">----</span>&nbsp;elements/second</span></p>
         </div>
         <footer class="footer">
             <p>&copy; Team C 4 lyfe</p>
@@ -75,7 +85,9 @@
             selectFilter($("#filter-group > .btn-info").attr("id")),
             selectAggregator($("#agg-group > .btn-info").attr("id")),
             function(update) {$("#rate").text(update.substring(0, 7))},
-            function(update) {$("#agg-result").text(update)}
+            function(update) {$("#agg-result").text(update)},
+            Number($("#duration").val()),
+            Number($("#delay").val())
           );
         });
         </script>

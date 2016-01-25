@@ -1,13 +1,13 @@
 var _count = 0;
 var _startTime = 0;
+var _timer = 0;
 
-var startAggregation = function (url, filter, aggregator, rateUpdate, aggUpdate) {
-    if (filter && aggregator && url) {
+var startAggregation = function (url, filter, aggregator, rateUpdate, aggUpdate, duration, delay) {
+    if (filter && aggregator && url && duration && delay) {
         _count = 0;
         _startTime = new Date().getTime() / 1000;
-        for (var i = 0; i < 50; i++) {
-            startHttpHandshake(url, filter, aggregator, rateUpdate, aggUpdate);
-        };
+        _timer = setInterval(startHttpHandshake, delay, url, filter, aggregator, rateUpdate, aggUpdate);
+        setTimeout(function(){clearInterval(_timer)}, duration*1000);
     }
 };
 
